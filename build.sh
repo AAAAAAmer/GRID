@@ -26,9 +26,16 @@ if [ -d "$DIR/assets" ]; then
 fi
 
 # 3. Compile Swift package
-echo "🔨 Compiling Swift sources for Apple Silicon..."
-swift build -c release --arch arm64
-BIN_DIR="$(swift build -c release --arch arm64 --show-bin-path)"
+#    GRID_UNIVERSAL=1 builds a universal binary (Apple Silicon + Intel) for distribution.
+if [ "$GRID_UNIVERSAL" = "1" ]; then
+    echo "🔨 Compiling Swift sources (universal: arm64 + x86_64)..."
+    ARCH_FLAGS=(--arch arm64 --arch x86_64)
+else
+    echo "🔨 Compiling Swift sources for Apple Silicon..."
+    ARCH_FLAGS=(--arch arm64)
+fi
+swift build -c release "${ARCH_FLAGS[@]}"
+BIN_DIR="$(swift build -c release "${ARCH_FLAGS[@]}" --show-bin-path)"
 cp "$BIN_DIR/GRID" "$MACOS_DIR/GRID"
 
 # 4. Codesign

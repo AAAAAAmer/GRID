@@ -27,6 +27,31 @@
 
 ---
 
+## ⬇️ Download
+
+1. Download **`GRID-x.y.z.dmg`** from the [latest release](https://github.com/AAAAAAmer/GRID/releases/latest).
+2. Open the DMG and drag **GRID** into **Applications**.
+3. Open GRID from Applications. Requires macOS 14 or later, Apple Silicon or Intel.
+
+### First launch (unsigned app)
+GRID is free and open source, so it isn't notarized by Apple. The first time you open it, macOS will block it:
+
+1. Try to open GRID once, then dismiss the warning.
+2. Go to **System Settings ➔ Privacy & Security**, scroll down, and click **Open Anyway** next to GRID.
+3. Confirm with **Open**.
+
+Prefer the terminal? This removes the download quarantine flag instead:
+```bash
+xattr -dr com.apple.quarantine /Applications/GRID.app
+```
+
+You can check the download against the `.sha256` file attached to the release:
+```bash
+shasum -a 256 -c GRID-x.y.z.dmg.sha256
+```
+
+---
+
 ## 🛠️ Build & Installation
 
 ### Option 1: One-Command Install
@@ -42,6 +67,12 @@ This script compiles the Swift source code, packages `build/GRID.app`, copies it
 The compiled application will be generated in `build/GRID.app`. Set `GRID_SIGN_IDENTITY` to sign with a real certificate instead of ad-hoc signing.
 
 > **Signing note:** without `GRID_SIGN_IDENTITY`, the app is ad-hoc signed with a designated requirement based only on its bundle identifier, so macOS keeps the Accessibility permission across rebuilds. The trade-off is that any other app on the same Mac signed with that identifier would inherit the permission. If that matters to you, sign with your own certificate.
+
+### Option 3: Release DMG
+```bash
+./release.sh
+```
+Builds a universal (Apple Silicon + Intel) app and packages it as `dist/GRID-<version>.dmg` with a SHA-256 checksum.
 
 ### Run Tests
 ```bash
@@ -99,6 +130,7 @@ GRID/
 ├── Info.plist                   # Bundle metadata (LSUIElement = true)
 ├── build.sh                     # swift build + app bundle + codesigning
 ├── install.sh                   # Builds and moves GRID.app to /Applications
+├── release.sh                   # Universal build packaged as a DMG
 └── profiles.example.json        # Example profile format
 ```
 
