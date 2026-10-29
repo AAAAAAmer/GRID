@@ -1,0 +1,37 @@
+{
+  "profiles" : {
+    "Laptop Focus" : {
+      "createdAt" : "2026-01-01T09:00:00Z",
+      "name" : "Laptop Focus",
+      "screenCount" : 1,
+      "screens" : [
+        {
+          "index" : 1,
+          "name" : "Built-in Retina Display",
+          "uuid" : "00000000-0000-0000-0000-000000000001"
+        }
+      ],
+      "windows" : [
+        {
+          "appName" : "Safari",
+          "bundleID" : "com.apple.Safari",
+          "rect" : { "h" : 1, "w" : 0.5, "x" : 0, "y" : 0 },
+          "screenIndex" : 1,
+          "screenName" : "Built-in Retina Display",
+          "screenUUID" : "00000000-0000-0000-0000-000000000001",
+          "targetUrl" : "https://www.apple.com/",
+          "windowTitle" : "Apple"
+        },
+        {
+          "appName" : "Finder",
+          "bundleID" : "com.apple.finder",
+          "rect" : { "h" : 1, "w" : 0.5, "x" : 0.5, "y" : 0 },
+          "screenIndex" : 1,
+          "screenName" : "Built-in Retina Display",
+          "screenUUID" : "00000000-0000-0000-0000-000000000001",
+          "windowTitle" : "Downloads"
+        }
+      ]
+    }
+  }
+}
